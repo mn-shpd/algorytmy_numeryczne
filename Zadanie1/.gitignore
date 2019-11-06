@@ -1,0 +1,12 @@
+#Ignore everything
+
+/*
+
+#But not these files
+
+!/.gitignore
+!/src/
+!/Wyniki.xlsx
+!/AlgNum1 - 240425.docx
+!/sprawozdanie.pdf
+!/AlgNumZad1.pdf
