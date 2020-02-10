@@ -30,7 +30,7 @@ public class CubicSplineInterpolation {
 
         //Parametry request'a.
         String dataFormat = "json";
-        String apiKey = "AIzaSyBbKTIAULPV5G3kCnfxBCJUvH7t2GVN2x0";
+        String apiKey = "API KEY HERE";
 
         URL url = new URL("https://maps.googleapis.com/maps/api/elevation/" + dataFormat + "?path=" + lat1 + "," + lng1 + "|"
                             + lat2 + "," + lng2 + "&samples=" + numberOfSamples + "&key=" + apiKey);
