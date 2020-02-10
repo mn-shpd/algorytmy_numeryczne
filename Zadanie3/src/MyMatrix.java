@@ -23,7 +23,7 @@ public class MyMatrix {
 
         for(int i = 0; i < rowCount; i++) {
             for(int j = 0; j < columnCount; j++) {
-                System.out.print(matrix[i][j] + " ");
+                System.out.print(matrix[i][j] + "\t");
             }
             System.out.println("");
         }
@@ -78,7 +78,7 @@ public class MyMatrix {
 
         for(int i = 0; i < rowCount; i++) {
             for(int j = 0; j < columnCount; j++) {
-                newMatrix.set(i, j, this.getValue(i, j) * number);
+                newMatrix.set(i, j, this.matrix[i][j] * number);
             }
         }
         return newMatrix;
@@ -106,16 +106,16 @@ public class MyMatrix {
     public void setRandomValues() {
 
         Random random = new Random();
-//        double randomValue;
+        double randomValue;
 
         for(int i = 0; i < this.getRowCount(); i++) {
             for(int j = 0; j < this.getColumnCount(); j++) {
-//                do {
-//                    randomValue = random.nextDouble();
-//                } while(randomValue == 0.0);
-                int randomValue = random.nextInt(65536) + 65536;
-                this.set(i, j, (double) randomValue / 65536);
-//                this.set(i, j, randomValue);
+                do {
+                    randomValue = random.nextDouble();
+                } while(randomValue == 0.0);
+//                int randomValue = random.nextInt(65536) + 65536;
+//                this.set(i, j, (double) randomValue / 65536);
+                this.matrix[i][j] = randomValue;
             }
         }
     }
@@ -151,7 +151,7 @@ public class MyMatrix {
 
         for(int i = 0; i < newMatrix.getRowCount(); i++) {
             for(int j = 0; j < newMatrix.getColumnCount(); j++) {
-                newMatrix.set(i, j, this.getValue(i + lowerRow, j + lowerColumn));
+                newMatrix.set(i, j, this.matrix[i + lowerRow][j + lowerColumn]);
             }
         }
 
@@ -254,7 +254,7 @@ public class MyMatrix {
             int rowNum = absoluteBiggestValueInColumn(k, k);
 
             //Jezeli najwieksza wartosc bezwzgledna to 0, to znaczy, ze cala kolumna jest zerowa. Wtedy przechodzi dalej.
-            if(this.matrix[rowNum][k] == 0.0) {
+            if(this.matrix[rowNum][k] == 0) {
                 continue;
             }
 
@@ -354,7 +354,7 @@ public class MyMatrix {
 
         for(int j = 0; j < this.columnCount; j++) {
 
-            double temp = -1.0 * this.matrix[firstRowNum][j] * value;
+            double temp = -1 * this.matrix[firstRowNum][j] * value;
             this.addSingleValue(secondRowNum, j, temp);
         }
     }
@@ -393,12 +393,14 @@ public class MyMatrix {
             throw new IllegalArgumentException(("Overrange rowNum argument."));
         } else {
 
-            double temp = Math.abs(this.getValue(rowNum, columnNum));
+            double temp = Math.abs(this.matrix[rowNum][columnNum]);
 
-            for (int i = rowNum + 1; i < this.getRowCount(); i++) {
+            for (int i = rowNum + 1; i < this.rowCount; i++) {
 
-                if (Math.abs(this.getValue(i, columnNum)) > temp) {
-                    temp = this.getValue(i, columnNum);
+                double temp2 = Math.abs(this.matrix[i][columnNum]);
+
+                if (temp2 > temp) {
+                    temp = temp2;
                     rowNumTemp = i;
                 }
             }
@@ -417,7 +419,7 @@ public class MyMatrix {
         for(int i = rowNum; i < this.rowCount; i++) {
             for(int j = columnNum; j < this.columnCount - 1; j++) {
                 if (Math.abs(this.matrix[i][j]) > temp) {
-                    temp = this.matrix[i][j];
+                    temp = Math.abs(this.matrix[i][j]);
                     biggestValueCoordinates.setI(i);
                     biggestValueCoordinates.setJ(j);
                 }

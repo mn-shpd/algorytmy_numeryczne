@@ -14,6 +14,12 @@ public class Main {
         System.out.println(recommendations.getUsersList().size());
         recommendations.fillRatingsMatrix();
 
+        recommendations.getRatings().print();
+
+//        recommendations.ratingsPartiallySetZero();
+
+
+
         System.out.println("Amount of loaded products: " + recommendations.getProductList().size());
         System.out.println("Amount of loaded users: " + recommendations.getUsersList().size());
 
@@ -22,7 +28,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Recommendations recommendations = prepareData(20, 70, "Book");
+        Recommendations recommendations = prepareData(10,100, "Book");
+
+//        int d = 3;
+//
+//        Stats stats = recommendations.als(d, 0.1, 1000000);
+//        System.out.println("Value of D parameter: " + d);
+//        System.out.println("Average number of iterations: " + stats.getIterations());
+//        System.out.println("Average time needed to calculate ratings [ms]: " + stats.getTime());
+//        System.out.println("Average objectiveFunction value: " + stats.getObjectiveFunctionResult());
 
         //Dla testow algorytm liczy 40 razy dla jednej wartosci d. Pozniej wyniki sa usrednione.
         int amountOfAttempts = 40;

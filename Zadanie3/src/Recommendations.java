@@ -152,8 +152,8 @@ public class Recommendations {
             throw new IllegalArgumentException("Parameter maximumAmountOfUsers cannot be greater than amount of loaded users.");
         }
 
-        List<String> newUsersList = new ArrayList<String>();
-        List<Integer> usersReviewsList = new ArrayList<Integer>();
+        List<String> newUsersList = new ArrayList<>();
+        List<Integer> usersReviewsList = new ArrayList<>();
         boolean flag;
 
         for(String user_id : usersList) {
@@ -166,6 +166,10 @@ public class Recommendations {
                         reviewCounter++;
                     }
                 }
+            }
+            //Jesli uzytkownik nie ocenil zadnego produktu z wczytanych, to petla pomija go
+            if(reviewCounter == 0) {
+                continue;
             }
             if(usersReviewsList.size() == 0) {
                 usersReviewsList.add(reviewCounter);
@@ -187,9 +191,6 @@ public class Recommendations {
 
         usersList = new ArrayList<>(newUsersList.subList(0, maximumAmountOfUsers));
 
-//        for(String user : usersList) {
-//            System.out.println(user);
-//        }
     }
 
     public void fillRatingsMatrix() {
@@ -360,6 +361,8 @@ public class Recommendations {
 
             if (objectiveFunctionDiff < 0.01) {
                 stats = new Stats(i + 1, time, actualObjectiveFunction);
+                System.out.println("----------------------");
+                ratingsCalculated.print();
                 break;
             }
 
@@ -396,6 +399,20 @@ public class Recommendations {
         secondSumElement *= lambda;
 
         return firstSumElement + secondSumElement;
+    }
+
+    public void ratingsPartiallySetZero() {
+
+        ratings.set(2, 1, 0.0);
+        ratings.set(3, 4, 0.0);
+        ratings.set(8, 1, 0.0);
+        ratings.set(5, 0, 0.0);
+        ratings.set(1, 3, 0.0);
+        ratings.set(0, 3, 0.0);
+        ratings.set(2, 7, 0.0);
+        ratings.set(7, 7, 0.0);
+        ratings.set(4, 9, 0.0);
+        ratings.set(9, 9, 0.0);
     }
 
     public List<ProductData> getProductsDataList() {
